@@ -1,0 +1,3 @@
+.PHONY: test-ci
+test-ci:
+	go test -race -coverprofile=coverage.out -covermode=atomic ./...
