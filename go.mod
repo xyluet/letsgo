@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/ThreeDotsLabs/watermill v1.3.4
+	github.com/go-kit/kit v0.13.0
 	github.com/go-kit/log v0.2.1
 	github.com/stretchr/testify v1.8.4
 )
