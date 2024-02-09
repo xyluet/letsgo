@@ -9,16 +9,15 @@ import (
 	"github.com/xyluet/letsgo/exp/kit/endpoint"
 )
 
-// NewServer returns a new kithttp.Server.
-// It is a helper function to convert a GenericEndpoint to a kithttp.Server.
+// NewServer returns a new http.Handler that wraps the provided endpoint.
 func NewServer[Request, Response any](
-	e endpoint.GenericEndpoint[Request, Response],
+	g endpoint.Generic[Request, Response],
 	dec func(context.Context, *http.Request) (Request, error),
 	enc func(context.Context, http.ResponseWriter, Response) error,
 	options ...kithttp.ServerOption,
 ) *kithttp.Server {
 	return kithttp.NewServer(
-		endpoint.Endpoint(e),
+		g.Endpoint(),
 		func(ctx context.Context, r *http.Request) (request interface{}, err error) {
 			return dec(ctx, r)
 		},
