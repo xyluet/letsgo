@@ -9,7 +9,7 @@ import (
 	"github.com/xyluet/letsgo/exp/kit/endpoint"
 )
 
-func TestEndpoint(t *testing.T) {
+func TestGeneric(t *testing.T) {
 	type requestType struct {
 		Name string `json:"name"`
 	}
@@ -22,7 +22,7 @@ func TestEndpoint(t *testing.T) {
 	anEndpoint := func(ctx context.Context, req requestType) (responseType, error) {
 		return responseType{Name: req.Name, What: "foo"}, nil
 	}
-	endpoint := endpoint.Endpoint[requestType, responseType](anEndpoint)
+	endpoint := endpoint.Generic[requestType, responseType](anEndpoint).Endpoint()
 	resp, err := endpoint(context.Background(), requestType{Name: "a name"})
 	assert.NoError(t, err)
 	assert.IsType(t, responseType{}, resp)
